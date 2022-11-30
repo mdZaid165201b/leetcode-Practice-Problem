@@ -8,7 +8,7 @@
 
 
 
-
+/**************************************This Solution is correct only for LinkedList of 34 length********************************************/
 
 
 
@@ -38,7 +38,10 @@ public:
             head = head->next;
         }
         // cout<<countL1<<" "<<countL2;
-
+        // if(countL1 == 1 && countL2 == 1){
+        //  head = new ListNode(l1->val + l2->val);
+        //  return head;   
+        // }
         int arr1[countL1];
         int arr2[countL2];
 
@@ -56,20 +59,34 @@ public:
             ++index;
             head = head->next;
         }
-        int firstValue = 0;
-        for(int i = countL1 - 1; i > 0; i--){
-            firstValue =  firstValue + arr1[i];
-            firstValue = firstValue * 10;
-            if(i == 1){ firstValue += arr1[0]; }
+        // cout<<arr1[0]<<" "<<arr2[0];
+        long long int firstValue = 0;
+        if(countL1 == 1) {
+            firstValue = arr1[0];
         }
-        int secondValue = 0;
-        for(int i = countL2 - 1; i > 0; i--){
-            secondValue += arr2[i];
-            secondValue *= 10;
-            if(i == 1){ secondValue += arr2[0]; }
+        else{
+            for(int i = countL1 - 1; i > 0; i--){
+                firstValue =  firstValue + arr1[i];
+                firstValue = firstValue * 10;
+                if(i == 1){ firstValue += arr1[0]; }
+            }
+
         }
-        int finalValue = firstValue + secondValue;
+        long long int secondValue = 0;
+        if(countL2 == 1){
+            secondValue = arr2[0];
+        }
+        else{
+            for(int i = countL2 - 1; i > 0; i--){
+                secondValue += arr2[i];
+                secondValue *= 10;
+                if(i == 1){ secondValue += arr2[0]; }
+            }
+        }
         
+        // cout<<firstValue<<" "<<secondValue;
+        long long int finalValue = firstValue + secondValue;
+        cout<<finalValue;
 
         ListNode *temp;
         head = NULL;
@@ -77,6 +94,8 @@ public:
         if(finalValue != 0){
             while(finalValue){
             int rem = finalValue % 10;
+            // cout<<finalValue<<" ";
+
             if(head == NULL){
                 head = new ListNode(rem);
                 temp = head;
@@ -89,7 +108,8 @@ public:
             finalValue = finalValue / 10;
             }
         }
-        else{
+        else if(finalValue >= 0 && finalValue <= 9){
+            // cout<<finalValue;
             head = new ListNode(finalValue);
         }
         
